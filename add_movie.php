@@ -76,7 +76,7 @@ Genre :
 	<input type="checkbox" name="genre[]" value="Short">Short</input>
 	<input type="checkbox" name="genre[]" value="Thriller">Thriller</input>
 	<input type="checkbox" name="genre[]" value="War">War</input>
-	<input type="checkbox" name="genre[]" value="Western">"Western"</input><br>
+	<input type="checkbox" name="genre[]" value="Western">Western</input><br>
 <input type="submit" value="Add it!!"/>
 
 </form>
