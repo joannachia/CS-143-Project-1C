@@ -6,10 +6,36 @@ mysql_select_db("CS143", $db_connection);
 $query_movie = "insert into Movie ('title', 'year', 'rating', 'company') values ('".$_POST["title"]."', '".$_POST["year"]."', '".$_POST["rating"]."', '".$_POST["company"]."');";
 $search_id_query = "select id from Movie where title = '".$_POST["title"]."' and year = '".$_POST["title"]."' and rating = '".$_POST["rating"]."' and comapny = '".$_POST["company"]."';";
 mysql_query($query_movie, $db_connection);
-$id = mysql_query($search_id_query, $db_connection);
+$affected = mysql_affected_rows($db_connection);
+
+$query_status = "";
+
+if ($affected > 0) {
+	$id = mysql_query($search_id_query, $db_connection);
+	$id_val = mysql_fetch_row($id);
+	$query_genre = "insert into MovieGenre ('mid', 'genre') values";
+	$genres = $_POST["genre"];
+
+	echo $id_val[0];
+
+	foreach ($genres as $genre){
+		$query_genre .= "('".$id_val[0]."', '".$genre."')";
+	}
+	$query_genre .= ";";
+	mysql_query($query_genre, $db_connection);
+	if (mysql_affected_rows($db_connection) > affected) {
+		$query_status = "Sucessfully inserted movie.";
+	}
+	else {
+		$query_status = "Insert Genre failed. Try again. ";
+		$query_delete_movie = "delete from Movie where id = '".$id_val[0]."';";
+		}
 
 
-$query_genre = "insert into MovieGenre ('mid', 'genre') values ('')";
+}
+else if ($affected == 0) {
+	$query_status = "Insert failed. Try again. ";
+}
 
 
 
@@ -32,28 +58,33 @@ MPAA Rating: <select name="rating">							<!--CHECK THIS DROP DOWN MENU PLS-->
 	</select>
 <br>
 Genre : 
-	<input type="checkbox" name="genre_"Action"" value=""Action"">"Action"</input>
-	<input type="checkbox" name="genre_"Adult"" value=""Adult"">"Adult"</input>
-	<input type="checkbox" name="genre_"Adventure"" value=""Adventure"">"Adventure"</input>
-	<input type="checkbox" name="genre_"Animation"" value=""Animation"">"Animation"</input>
-	<input type="checkbox" name="genre_"Comedy"" value=""Comedy"">"Comedy"</input>
-	<input type="checkbox" name="genre_"Crime"" value=""Crime"">"Crime"</input>
-	<input type="checkbox" name="genre_"Documentary"" value=""Documentary"">"Documentary"</input>
-	<input type="checkbox" name="genre_"Drama"" value=""Drama"">"Drama"</input>
-	<input type="checkbox" name="genre_"Family"" value=""Family"">"Family"</input>
-	<input type="checkbox" name="genre_"Fantasy"" value=""Fantasy"">"Fantasy"</input>
-	<input type="checkbox" name="genre_"Horror"" value=""Horror"">"Horror"</input>
-	<input type="checkbox" name="genre_"Musical"" value=""Musical"">"Musical"</input>
-	<input type="checkbox" name="genre_"Mystery"" value=""Mystery"">"Mystery"</input>
-	<input type="checkbox" name="genre_"Romance"" value=""Romance"">"Romance"</input>
-	<input type="checkbox" name="genre_"Sci-Fi"" value=""Sci-Fi"">"Sci-Fi"</input>
-	<input type="checkbox" name="genre_"Short"" value=""Short"">"Short"</input>
-	<input type="checkbox" name="genre_"Thriller"" value=""Thriller"">"Thriller"</input>
-	<input type="checkbox" name="genre_"War"" value=""War"">"War"</input>
-	<input type="checkbox" name="genre_"Western"" value=""Western"">"Western"</input><br>
+	<input type="checkbox" name="genre[]" value="Action">Action</input>
+	<input type="checkbox" name="genre[]" value="Adult">Adult</input>
+	<input type="checkbox" name="genre[]" value="Adventure">Adventure</input>
+	<input type="checkbox" name="genre[]" value="Animation">Animation</input>
+	<input type="checkbox" name="genre[]" value="Comedy">Comedy</input>
+	<input type="checkbox" name="genre[]" value="Crime">Crime</input>
+	<input type="checkbox" name="genre[]" value="Documentary">Documentary</input>
+	<input type="checkbox" name="genre[]" value="Drama">Drama</input>
+	<input type="checkbox" name="genre[]" value="Family">Family</input>
+	<input type="checkbox" name="genre[]" value="Fantasy">Fantasy</input>
+	<input type="checkbox" name="genre[]" value="Horror">Horror</input>
+	<input type="checkbox" name="genre[]" value="Musical">Musical</input>
+	<input type="checkbox" name="genre[]" value="Mystery">Mystery</input>
+	<input type="checkbox" name="genre[]" value="Romance">Romance</input>
+	<input type="checkbox" name="genre[]" value="Sci-Fi">SciFi<input>
+	<input type="checkbox" name="genre[]" value="Short">Short</input>
+	<input type="checkbox" name="genre[]" value="Thriller">Thriller</input>
+	<input type="checkbox" name="genre[]" value="War">War</input>
+	<input type="checkbox" name="genre[]" value="Western">"Western"</input><br>
 <input type="submit" value="Add it!!"/>
 
 </form>
+
+
+<?php
+echo $query_status;
+?>
 
 
 
