@@ -24,7 +24,7 @@ Add:
 Browsing:
 <ul>
 	<li><a href="b_actor.php" target="main">By Actor</a></li>
-	<li><a href="b_search.php" target="main">By Movies</a></li>
+	<li><a href="b_movie.php" target="main">By Movies</a></li>
 </ul>
 
 </td>
