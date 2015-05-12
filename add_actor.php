@@ -20,13 +20,11 @@ else {
 	$query_actor.= "'".$_POST["dod"]."')";
 }
 
-echo $query_actor;
 
 
 
 $success = mysql_query($query_actor, $db_connection);
 
-$affected = mysql_affected_rows($db_connection);
 $query_status = "";
 
 if ($success){
@@ -36,8 +34,6 @@ else {
 	$query_status = "Fail add!";
 }
 
-
-echo $affected;
 
 ?>
 
