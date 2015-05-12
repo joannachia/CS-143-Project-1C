@@ -3,27 +3,41 @@
 $db_connection = mysql_connect("localhost", "cs143", "");
 mysql_select_db("CS143", $db_connection);
 
-$query_actor = "insert into Actor ('last', 'first', 'sex', 'dob', 'dod') values ('".$_POST["l_name"]."', '".$_POST["f_name"]."', '".$_POST["gender"]."', '".$_POST["dob"]."', ";
+
+
+$query_actor = sprintf("insert into Actor (last, first, sex, dob, dod) values ('%s', '%s', '%s', '%s',",
+			mysql_real_escape_string($_POST["l_name"]),
+			mysql_real_escape_string($_POST["f_name"]),
+			mysql_real_escape_string($_POST["gender"]),
+			mysql_real_escape_string($_POST["dob"]));
+
+
+$dod = "";
 if (!isset($_POST["dod"]) || trim($_POST["dod"]) == '' ) { 
-	$query_actor .= "NULL);";
+	$query_actor.= "NULL)";
 }
 else {
-	$query_actor.= "'".$_POST["dod"]."');";
+	$query_actor.= "'".$_POST["dod"]."')";
 }
+
 echo $query_actor;
 
 
-mysql_query($query_movie, $db_connection);
+
+$success = mysql_query($query_actor, $db_connection);
+
 $affected = mysql_affected_rows($db_connection);
 $query_status = "";
 
-if ($affected > 0){
+if ($success){
 	$query_status = "Successful add!";
 }
 else {
 	$query_status = "Fail add!";
 }
 
+
+echo $affected;
 
 ?>
 
