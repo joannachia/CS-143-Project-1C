@@ -3,45 +3,49 @@
 $db_connection = mysql_connect("localhost", "cs143", "");
 mysql_select_db("CS143", $db_connection);
 
-$query_movie = "insert into Movie (title, year, rating, company) values ('".$_POST["title"]."', '".$_POST["year"]."', '".$_POST["rating"]."', '".$_POST["company"]."');";
-$search_id_query = "select id from Movie where title = '".$_POST["title"]."' and year = '".$_POST["year"]."' and rating = '".$_POST["rating"]."' and company = '".$_POST["company"]."';";
+if (isset($_POST["title"]))
+{
+	$query_movie = sprintf("insert into Movie (title, year, rating, company) values ('%s', '%s', '%s', '%s')",
+				mysql_real_escape_string($_POST["title"]),
+				mysql_real_escape_string($_POST["year"]),
+				mysql_real_escape_string($_POST["rating"]),
+				mysql_real_escape_string($_POST["company"]));
 
-mysql_query($query_movie, $db_connection);
-$affected = mysql_affected_rows($db_connection);
+	$search_id_query = sprintf("select id from Movie where title = '%s' and year = '%s' and rating = '%s' and company = '%s'",
+				mysql_real_escape_string($_POST["title"]),
+				mysql_real_escape_string($_POST["year"]),
+				mysql_real_escape_string($_POST["rating"]),
+				mysql_real_escape_string($_POST["company"]));
 
-$query_status = "";
+	mysql_query($query_movie, $db_connection);
+	$affected = mysql_affected_rows($db_connection);
 
-if ($affected > 0) {
-	echo $search_id_query ."<br>";
-	$id = mysql_query($search_id_query, $db_connection);
-	$id_val = mysql_fetch_row($id);
-	$query_genre = "insert into MovieGenre (mid, genre) values";
-	$genres = $_POST["genre"];
+	$query_status = "";
 
-	echo $id_val[0];
+	if ($affected > 0) {
+		$id = mysql_query($search_id_query, $db_connection);
+		$id_val = mysql_fetch_row($id);
+		$query_genre = "insert into MovieGenre (mid, genre) values";
+		$genres = $_POST["genre"];
 
-	foreach ($genres as $genre){
-		$query_genre .= "('".$id_val[0]."', '".$genre."'),";
-		echo $query_genre;
-	}
-	$query_genre = rtrim($query_genre, ",");
-	$query_genre .= ";";
-	echo $query_genre;
-	mysql_query($query_genre, $db_connection);
-	if (mysql_affected_rows($db_connection) > affected) {
-		$query_status = "Sucessfully inserted movie.";
-	}
-	else {
-		$query_status = "Insert Genre failed. Try again. ";
-		$query_delete_movie = "delete from Movie where id = '".$id_val[0]."';";
+		foreach ($genres as $genre){
+			$query_genre .= "('".$id_val[0]."', '".$genre."'),";
 		}
-
-
+		$query_genre = rtrim($query_genre, ",");
+		$query_genre .= ";";
+		mysql_query($query_genre, $db_connection);
+		if (mysql_affected_rows($db_connection) > affected) {
+			$query_status = "Sucessfully inserted movie.";
+		}
+		else {
+			$query_status = "Insert Genre failed. Try again. ";
+			$query_delete_movie = "delete from Movie where id = '".$id_val[0]."';";
+			}
+	}
+	else if ($affected == 0) {
+		$query_status = "Insert failed. Try again. ";
+	}
 }
-else if ($affected == 0) {
-	$query_status = "Insert failed. Try again. ";
-}
-
 
 
 ?>
