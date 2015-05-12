@@ -72,7 +72,7 @@ Genre :
 	<input type="checkbox" name="genre[]" value="Musical">Musical</input>
 	<input type="checkbox" name="genre[]" value="Mystery">Mystery</input>
 	<input type="checkbox" name="genre[]" value="Romance">Romance</input>
-	<input type="checkbox" name="genre[]" value="Sci-Fi">SciFi<input>
+	<input type="checkbox" name="genre[]" value="Sci-Fi">SciFi</input>
 	<input type="checkbox" name="genre[]" value="Short">Short</input>
 	<input type="checkbox" name="genre[]" value="Thriller">Thriller</input>
 	<input type="checkbox" name="genre[]" value="War">War</input>

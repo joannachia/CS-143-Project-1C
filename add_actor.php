@@ -3,13 +3,15 @@
 $db_connection = mysql_connect("localhost", "cs143", "");
 mysql_select_db("CS143", $db_connection);
 
-$query_actor = "insert into Actor ('last', 'first', 'sex', 'dob', 'dod') values ('".$_POST["l_name"]."', '".$_POST["f_name"]."', '".$_POST["sex"]."', '".$_POST["dob"]."', ";
+$query_actor = "insert into Actor ('last', 'first', 'sex', 'dob', 'dod') values ('".$_POST["l_name"]."', '".$_POST["f_name"]."', '".$_POST["gender"]."', '".$_POST["dob"]."', ";
 if (!isset($_POST["dod"]) || trim($_POST["dod"]) == '' ) { 
-	$query_actor .= "'NULL');";
+	$query_actor .= "NULL);";
 }
 else {
 	$query_actor.= "'".$_POST["dod"]."');";
 }
+echo $query_actor;
+
 
 mysql_query($query_movie, $db_connection);
 $affected = mysql_affected_rows($db_connection);
