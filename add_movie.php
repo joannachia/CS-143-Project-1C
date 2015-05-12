@@ -3,25 +3,30 @@
 $db_connection = mysql_connect("localhost", "cs143", "");
 mysql_select_db("CS143", $db_connection);
 
-$query_movie = "insert into Movie ('title', 'year', 'rating', 'company') values ('".$_POST["title"]."', '".$_POST["year"]."', '".$_POST["rating"]."', '".$_POST["company"]."');";
-$search_id_query = "select id from Movie where title = '".$_POST["title"]."' and year = '".$_POST["title"]."' and rating = '".$_POST["rating"]."' and comapny = '".$_POST["company"]."';";
+$query_movie = "insert into Movie (title, year, rating, company) values ('".$_POST["title"]."', '".$_POST["year"]."', '".$_POST["rating"]."', '".$_POST["company"]."');";
+$search_id_query = "select id from Movie where title = '".$_POST["title"]."' and year = '".$_POST["year"]."' and rating = '".$_POST["rating"]."' and company = '".$_POST["company"]."';";
+
 mysql_query($query_movie, $db_connection);
 $affected = mysql_affected_rows($db_connection);
 
 $query_status = "";
 
 if ($affected > 0) {
+	echo $search_id_query ."<br>";
 	$id = mysql_query($search_id_query, $db_connection);
 	$id_val = mysql_fetch_row($id);
-	$query_genre = "insert into MovieGenre ('mid', 'genre') values";
+	$query_genre = "insert into MovieGenre (mid, genre) values";
 	$genres = $_POST["genre"];
 
 	echo $id_val[0];
 
 	foreach ($genres as $genre){
-		$query_genre .= "('".$id_val[0]."', '".$genre."')";
+		$query_genre .= "('".$id_val[0]."', '".$genre."'),";
+		echo $query_genre;
 	}
+	$query_genre = rtrim($query_genre, ",");
 	$query_genre .= ";";
+	echo $query_genre;
 	mysql_query($query_genre, $db_connection);
 	if (mysql_affected_rows($db_connection) > affected) {
 		$query_status = "Sucessfully inserted movie.";
