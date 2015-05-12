@@ -36,8 +36,6 @@ if (isset($_POST["search"])){
 }
 
 
-echo $query_actor;
-echo "<br>".$query_movie;
 ?>
 
 Search for actors/movies
