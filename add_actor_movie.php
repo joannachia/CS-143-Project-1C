@@ -10,7 +10,7 @@ $actor_query = "select id, first, last from Actor";
 $movie = mysql_query($movie_query, $db_connection);
 $actor = mysql_query($actor_query, $db_connection);
 
-if (isset($_POST["role"])){
+if ($_POST["role"] != ""){
 	$insert_query = sprintf("insert into MovieActor values (%s, %s, '%s')",
 							mysql_real_escape_string($_POST["movie"]),
 							mysql_real_escape_string($_POST["actor"]),
@@ -29,14 +29,14 @@ if (isset($_POST["role"])){
 	}
 }
 else {
-	$query_status = "Must add role!";
+	$query_status = "<b>Must choose a movie and a role!</b>";
 }
 
 
 ?>
 
 <form action="add_actor_movie.php" method="POST">
-Add New Actor in Movie:<br>
+<b>Add New Actor in Movie:</b><br><br>
 Movie: <?php 
 		echo '<select name="movie">';
 		while($movie_row = mysql_fetch_row($movie)){
