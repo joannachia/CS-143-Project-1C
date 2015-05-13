@@ -15,12 +15,12 @@ $results = mysql_query($query, $db_connection);
 
 $movie_row = mysql_fetch_array($results, MYSQL_ASSOC);
 
-echo "---Movie Information--- <br/>";
-echo "Title: ".$movie_row["title"]." ".$movie_row["last"]."<br/>";
-echo "Year: ".$movie_row["year"]."<br/>";
-echo "Rating: ".$movie_row["rating"]."<br/>";
-echo "Production Company: ".$movie_row["company"]."<br/>";
-echo "Director: ";
+echo "<b>---Movie Information---</b> <br/>";
+echo "<b>Title:</b> ".$movie_row["title"]." ".$movie_row["last"]."<br/>";
+echo "<b>Year:</b> ".$movie_row["year"]."<br/>";
+echo "<b>Rating:</b> ".$movie_row["rating"]."<br/>";
+echo "<b>Production Company:</b> ".$movie_row["company"]."<br/>";
+echo "<b>Director:</b> ";
 //Printing out director relations
 $director_html = "";
 $query_director = "select first, last, dob from Director d where d.id = any (select md.did from MovieDirector md where md.mid = ".$mid.")";
@@ -31,7 +31,7 @@ $director_html = substr($director_html, 0, -2);
 echo $director_html;
 
 //Printing out relevant genres
-echo "<br/>Genre(s): ";
+echo "<br/><b>Genre(s):</b> ";
 $genre_html = "";
 $query_genre = "select genre from MovieGenre mg where mg.mid = ".$mid;
 $movieGenre_results = mysql_query($query_genre, $db_connection);
@@ -41,7 +41,7 @@ $genre_html = substr($genre_html, 0, -2);
 echo $genre_html;
 
 
-echo "<br/><br/>---Actors in this Movie--- <br/>";
+echo "<br/><br/><b>---Actors in this Movie---</b> <br/>";
 
 $query_movieActor = "select * from MovieActor where mid=".$mid;
 $movieActor_results = mysql_query($query_movieActor, $db_connection);

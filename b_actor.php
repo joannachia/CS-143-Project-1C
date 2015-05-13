@@ -15,16 +15,16 @@ $results = mysql_query($query, $db_connection);
 
 $actor_row = mysql_fetch_array($results, MYSQL_ASSOC);
 
-echo "---Actor Information--- <br/>";
-echo "Name: ".$actor_row["first"]." ".$actor_row["last"]."<br/>";
-echo "Sex: ".$actor_row["sex"]."<br/>";
-echo "Date of Birth: ".$actor_row["dob"]."<br/>";
+echo "<b>---Actor Information---</b> <br/>";
+echo "<b>Name:</b> ".$actor_row["first"]." ".$actor_row["last"]."<br/>";
+echo "<b>Sex</b>: ".$actor_row["sex"]."<br/>";
+echo "<b>Date of Birth:</b> ".$actor_row["dob"]."<br/>";
 if ($actor_row["dod"])
-	echo "Date of Death: ".$actor_row["dod"]."<br/>";
+	echo "<b>Date of Death:</b> ".$actor_row["dod"]."<br/>";
 else
-	echo "Date of Death: ---Still Alive---";
+	echo "<b>Date of Death:</b> ---Still Alive---";
 
-echo "<br/><br/>---Acted in following movies--- <br/>";
+echo "<br/><br/><b>---Acted in following movies---</b> <br/>";
 
 $query_actor = "select * from MovieActor where aid=".$aid;
 $movieActor_results = mysql_query($query_actor, $db_connection);
