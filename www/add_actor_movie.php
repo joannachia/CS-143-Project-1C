@@ -22,10 +22,10 @@ if ($_POST["role"] != ""){
 	$query_status = "";
 
 	if ($success){
-		$query_status = "Successful add!";
+		$query_status = "<b>Successfully added!</b>";
 	}
 	else {
-		$query_status = "Fail add!";
+		$query_status = "<b>Failed to add!</b>";
 	}
 }
 else {
@@ -38,7 +38,7 @@ else {
 <form action="add_actor_movie.php" method="POST">
 <b>Add New Actor in Movie:</b><br><br>
 Movie: <?php 
-		echo '<select name="movie">';
+		echo '<select name="movie" id="movies">';
 		while($movie_row = mysql_fetch_row($movie)){
 			echo '<option value="'.$movie_row[0].'">'.$movie_row[1].'</option>';
 		}
@@ -46,7 +46,7 @@ Movie: <?php
 		?>
 <br>
 Actor: <?php 
-		echo '<select name="actor">';
+		echo '<select name="actor" id="actors">';
 		while($actor_row = mysql_fetch_row($actor)){
 			echo '<option value="'.$actor_row[0].'">'.$actor_row[1].' '.$actor_row[2].'</option>';
 		}
@@ -54,7 +54,7 @@ Actor: <?php
 		?>
 <br>
 Role: <input type="text" name="role" /><br>
-<input type="submit" value="Add it!!"/>
+<input type="submit" value="Add it!"/>
 </form>
 
 <?php

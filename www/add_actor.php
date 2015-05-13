@@ -25,7 +25,7 @@ if ($_POST["l_name"] != "" && $_POST["f_name"] != "" && $_POST["dob"] != "") {
 	$query_status = "";
 
 	if ($success){
-		$query_status = "<b>Successful add!</b>";
+		$query_status = "<b>Successfully added!</b>";
 	}
 	else {
 		$query_status = "<b>Failed to add!</b>";

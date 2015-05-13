@@ -1,7 +1,7 @@
 
 <html>
 <head>
-	<title>A sample of Movie Database</title>
+	<title>Movie Database</title>
 </head>
 
 
